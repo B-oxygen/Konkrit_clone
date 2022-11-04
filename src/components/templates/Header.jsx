@@ -60,6 +60,20 @@ const KaikasImage = styled.img`
   width: 20px;
   height: 20px;
 `;
+async function isKaikasAvailable() {
+  const klaytn = window?.klaytn;
+  if (!klaytn) {
+    return false;
+  }
+
+  const results = await Promise.all([
+    klaytn._kaikas.isApproved(),
+    klaytn._kaikas.isEnabled(),
+    klaytn._kaikas.isUnlocked(),
+  ]);
+
+  return results.every((res) => res);
+}
 
 const klaytn = window.klaytn;
 
@@ -93,8 +107,15 @@ function Header() {
     loginWithKaikas();
   }
 
-  function handleDone() {
-    toast.success("이미 로그인이 되셨습니다.");
+  async function handleDone() {
+    const isAvailable = await isKaikasAvailable();
+    if (isAvailable) {
+      toast.success("이미 로그인이 되어 있습니다.");
+      return;
+    }
+
+    toast.warn("다시 로그인 해주세요.");
+    setUser("");
   }
 
   return (
