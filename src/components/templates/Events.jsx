@@ -3,6 +3,31 @@ import * as colors from "@styles/colors";
 import SectionLayout from "@components/molecules/SectionLayout";
 import HideScrollX from "@components/molecules/HideScrollX";
 import EventCard from "@components/molecules/EventCard";
+import eventImageOne from "@assets/image/event_one.png";
+import eventImageTwo from "@assets/image/event_two.png";
+import eventImageThree from "@assets/image/event_three.png";
+
+const eventData = [
+  {
+    id: 1,
+    imgUrl: eventImageOne,
+    title: "메디소사이어티 NFT 프로젝트",
+    subtitle: "Medistock",
+    targetDate: new Date(2022, 10, 11),
+  },
+  {
+    id: 2,
+    imgUrl: eventImageTwo,
+    title: "아티스트 Ohnim 프로젝트",
+    subTitle: "YG K+",
+  },
+  {
+    id: 3,
+    imgUrl: eventImageThree,
+    title: "아비투스 프리미엄 골프 멤버십 NFT",
+    subTitle: "Habitus",
+  },
+];
 
 const EventsTopWrapper = styled.div`
   display: flex;
@@ -49,8 +74,8 @@ function Events() {
         <ShowAllText>이벤트 전체보기</ShowAllText>
       </EventsTopWrapper>
       <HideScrollX>
-        {[1, 2, 3, 4].map((num) => (
-          <EventCard key={num} />
+        {eventData.map((event) => (
+          <EventCard {...event} key={event.id} />
         ))}
       </HideScrollX>
     </SectionLayout>

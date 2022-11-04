@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
+
 function useCountDown(targetDate) {
   const [countDown, setCountDown] = useState(() => {
     return Math.max(targetDate - new Date(), 0);
   });
+
+  const isClosed = countDown <= 0;
+  const isComingSoon = isNaN(countDown);
+
   useEffect(() => {
     const id = setInterval(() => {
       setCountDown((c) => Math.max(c - 1000, 0));
@@ -10,7 +15,7 @@ function useCountDown(targetDate) {
     return () => clearInterval(id);
   }, []);
 
-  return getValues(countDown);
+  return { ...getValues(countDown), isClosed, isComingSoon };
 }
 
 function getValues(ms) {

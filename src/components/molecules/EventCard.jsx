@@ -10,8 +10,9 @@ const EventCardWrapper = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
-  background: ${colors.cardGradient};
-
+  background: ${colors.cardGradient}, ${(props) => `url(${props.imgUrl})`};
+  background-size: cover;
+  background-position: 50% 50%;
   flex-shrink: 0;
   overflow: hidden;
 `;
@@ -32,15 +33,16 @@ const EventTitle = styled.div`
   font-size: 16px;
 `;
 
-export default function EventCard() {
+export default function EventCard(props = {}) {
+  const { title, subTitle, imgUrl, targetDate } = props || {};
   return (
     <div>
-      <EventCardWrapper>
-        <CountDown />
+      <EventCardWrapper imgUrl={imgUrl}>
+        <CountDown targetDate={targetDate} />
       </EventCardWrapper>
       <EventTitles>
-        <EventSubTitle>Medistock</EventSubTitle>
-        <EventTitle>메디소사이어티 NFT 프로젝트</EventTitle>
+        <EventSubTitle>{subTitle}</EventSubTitle>
+        <EventTitle>{title}</EventTitle>
       </EventTitles>
     </div>
   );
