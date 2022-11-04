@@ -6,7 +6,7 @@ import ItemsOnSale from "@components/templates/ItemsOnSale";
 import OpenseaTopCollections from "@components/templates/OpenseaTopCollections";
 import OnBoarding from "@components/templates/OnBoarding";
 import Footer from "@components/templates/Footer";
-
+import { AuthContext } from "@contexts/AuthContext";
 
 function App() {
   return (
