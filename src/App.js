@@ -36,6 +36,31 @@ function App() {
     }
   }, [setUser]);
 
+  useEffect(() => {
+    if (!klaytn) {
+      return;
+    }
+
+    const handleChangeAccounts = () => {
+      if (!user) {
+        return;
+      }
+      const changedAccount = klaytn?.selectedAddress;
+
+      if (user !== changedAccount) {
+        toast.success(`${changedAccount.slice(0, 5)}..계정으로 바뀌었습니다.`);
+        setUser(changedAccount);
+        localStorage.setItem("_user", changedAccount);
+      }
+    };
+
+    klaytn?.on("accountsChanged", handleChangeAccounts);
+
+    return () => {
+      klaytn.off("accountsChanged", handleChangeAccounts);
+    };
+  }, [user, setUser]);
+
   return (
     <>
       <GlobalStyle />
